@@ -1,6 +1,6 @@
 # AO-Radar
 
-Albion Online Player and Harvestable Radar
+Sorry, pretty sure Albion finally encrypted the traffic required for AO-Radar to work. Feel free to test it.
 
 # Getting Started
 
