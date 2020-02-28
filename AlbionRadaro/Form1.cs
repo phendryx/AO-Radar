@@ -210,7 +210,13 @@ namespace AlbionRadaro
                         {
                             Single hX = -1 * p.PosX + lpX;
                             Single hY = p.PosY - lpY;
-                            g.FillEllipse(playerBrush, hX, hY, 4, 4);
+                            g.FillEllipse(playerBrush, hX, hY, 2, 2);
+                            g.TranslateTransform(hX, hY);
+                            g.RotateTransform(135f);
+                            Font font2 = new Font("Arial", 2, FontStyle.Regular);
+                            g.DrawString(p.Nickname, font2, Brushes.White, 1, -2);
+                            g.RotateTransform(-135f);
+                            g.TranslateTransform(-hX, -hY);
                         }
                     }
 
@@ -494,7 +500,7 @@ namespace AlbionRadaro
 
         private void MoveRadarValueChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(nRadarX.Value + " " + nRadarY.Value);
+            //Console.WriteLine(nRadarX.Value + " " + nRadarY.Value);
             if (mapForm.InvokeRequired)
             {
                 mapForm.Invoke((Action)(() =>

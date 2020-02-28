@@ -42,38 +42,37 @@ namespace AlbionRadaro
             //Console.WriteLine("Event: " + eventCode);
             switch (eventCode)
             {
-                case EventCodes.HarvestableChangeState:
-                    Console.WriteLine("Event: " + eventCode);
+                case EventCodes.evHarvestableChangeState:
                     onHarvestableChangeState(parameters);
                     break;
-                case EventCodes.HarvestFinished:
+                case EventCodes.evHarvestFinished:
                     onHarvestFinished(parameters);
                     break;
-                case EventCodes.NewCharacter:
+                case EventCodes.evNewCharacter:
                     onNewCharacterEvent(parameters);
                     break;
-                case EventCodes.NewHarvestableObject:
+                case EventCodes.evNewHarvestableObject:
                     onNewHarvestableObject(parameters);
                     break;
-                case EventCodes.NewSimpleHarvestableObjectList:
+                case EventCodes.evNewSimpleHarvestableObjectList:
                     onNewSimpleHarvestableObjectList(parameters);
                     break;
-                case EventCodes.Leave:
+                case EventCodes.evLeave:
                     onLeave(parameters);
                     break;
-                case EventCodes.NewMob:
+                case EventCodes.evNewMob:
                     onNewMob(parameters);
                     break;
-                case EventCodes.JoinFinished:
+                case EventCodes.evJoinFinished:
                     onJoinFinished(parameters);
                     break;
-                case EventCodes.InCombatStateUpdate:
+                case EventCodes.evInCombatStateUpdate:
                     onInCombatStateUpdate(parameters);
                     break;
-                case EventCodes.CastSpell:
+                case EventCodes.evCastSpell:
                     onCastSpell(parameters);
                     break;
-                case EventCodes.MobChangeState:
+                case EventCodes.evMobChangeState:
                     onMobChangeState(parameters);
                     break;
                 default: break;
@@ -106,7 +105,7 @@ namespace AlbionRadaro
             //Console.WriteLine("OnRequest: " + code);
             switch (code)
             {
-                case OperationCodes.Move:
+                case OperationCodes.opMove:
                     onLocalPlayerMovement(parameters);
                     break;
             }
