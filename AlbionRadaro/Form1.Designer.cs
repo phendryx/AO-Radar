@@ -645,7 +645,7 @@
             this.groupBox6.Size = new System.Drawing.Size(271, 50);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Guilds Alliances (shows purple, \"guild1,guild2\")";
+            this.groupBox6.Text = "Friendly Alliances (shows purple, \"guild1,guild2\")";
             // 
             // Form1
             // 
