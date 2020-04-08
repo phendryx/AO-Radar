@@ -39,7 +39,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbSounds = new System.Windows.Forms.CheckBox();
             this.cbDisplayPeople = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbTier1230 = new System.Windows.Forms.CheckBox();
             this.cbTier40 = new System.Windows.Forms.CheckBox();
@@ -71,6 +70,9 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.nRadarY = new System.Windows.Forms.NumericUpDown();
             this.nRadarX = new System.Windows.Forms.NumericUpDown();
+            this.chkHideRadar = new System.Windows.Forms.CheckBox();
+            this.txtAlliances = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -78,6 +80,7 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRadarY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nRadarX)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -184,10 +187,11 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbSounds);
+            this.groupBox3.Controls.Add(this.chkHideRadar);
             this.groupBox3.Controls.Add(this.cbDisplayPeople);
             this.groupBox3.Location = new System.Drawing.Point(14, 181);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(109, 72);
+            this.groupBox3.Size = new System.Drawing.Size(109, 87);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "People Radar";
@@ -215,15 +219,6 @@
             this.cbDisplayPeople.Text = "Display People";
             this.cbDisplayPeople.UseVisualStyleBackColor = true;
             this.cbDisplayPeople.CheckedChanged += new System.EventHandler(this.cbDisplayPeople_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(152, 240);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Made by Sahee#1014";
             // 
             // label2
             // 
@@ -623,23 +618,52 @@
             -2147483648});
             this.nRadarX.ValueChanged += new System.EventHandler(this.MoveRadarValueChanged);
             // 
+            // chkHideRadar
+            // 
+            this.chkHideRadar.AutoSize = true;
+            this.chkHideRadar.Location = new System.Drawing.Point(6, 65);
+            this.chkHideRadar.Name = "chkHideRadar";
+            this.chkHideRadar.Size = new System.Drawing.Size(80, 17);
+            this.chkHideRadar.TabIndex = 23;
+            this.chkHideRadar.Text = "Hide Radar";
+            this.chkHideRadar.UseVisualStyleBackColor = true;
+            this.chkHideRadar.CheckedChanged += new System.EventHandler(this.ChkHideRadar_CheckedChanged);
+            // 
+            // txtAlliances
+            // 
+            this.txtAlliances.Location = new System.Drawing.Point(10, 18);
+            this.txtAlliances.Name = "txtAlliances";
+            this.txtAlliances.Size = new System.Drawing.Size(255, 20);
+            this.txtAlliances.TabIndex = 24;
+            this.txtAlliances.TextChanged += new System.EventHandler(this.TxtAlliances_TextChanged);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.txtAlliances);
+            this.groupBox6.Location = new System.Drawing.Point(12, 282);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(271, 50);
+            this.groupBox6.TabIndex = 25;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Guilds Alliances (shows purple, \"guild1,guild2\")";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(290, 260);
+            this.ClientSize = new System.Drawing.Size(290, 360);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(306, 299);
+            this.MaximumSize = new System.Drawing.Size(306, 399);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(306, 299);
+            this.MinimumSize = new System.Drawing.Size(306, 399);
             this.Name = "Form1";
             this.Text = "AO RADARO - V 1.12.365";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -655,6 +679,8 @@
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nRadarY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nRadarX)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -673,7 +699,6 @@
         public System.Windows.Forms.GroupBox groupBox3;
         public System.Windows.Forms.CheckBox cbSounds;
         public System.Windows.Forms.CheckBox cbDisplayPeople;
-        public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.CheckBox cbTier1230;
         public System.Windows.Forms.CheckBox cbTier40;
@@ -705,6 +730,9 @@
         private System.Windows.Forms.GroupBox groupBox5;
         public System.Windows.Forms.NumericUpDown nRadarY;
         public System.Windows.Forms.NumericUpDown nRadarX;
+        public System.Windows.Forms.CheckBox chkHideRadar;
+        private System.Windows.Forms.GroupBox groupBox6;
+        public System.Windows.Forms.TextBox txtAlliances;
     }
 }
 

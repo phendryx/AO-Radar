@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using AlbionRadaro.Mobs;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace AlbionRadaro
 {
@@ -39,7 +41,7 @@ namespace AlbionRadaro
             EventCodes eventCode = (EventCodes)iCode;
 
 
-            //Console.WriteLine("Event: " + eventCode);
+            // Console.WriteLine("Event: " + eventCode);
             switch (eventCode)
             {
                 case EventCodes.evHarvestableChangeState:
@@ -61,6 +63,7 @@ namespace AlbionRadaro
                     onLeave(parameters);
                     break;
                 case EventCodes.evNewMob:
+                    Console.WriteLine("evNewMob");
                     onNewMob(parameters);
                     break;
                 case EventCodes.evJoinFinished:
@@ -73,9 +76,12 @@ namespace AlbionRadaro
                     onCastSpell(parameters);
                     break;
                 case EventCodes.evMobChangeState:
+                    Console.WriteLine("evMobChangeState");
                     onMobChangeState(parameters);
                     break;
-                default: break;
+                default:
+                    //Console.WriteLine(eventCode);
+                    break;
             }
         }
 
@@ -255,11 +261,11 @@ namespace AlbionRadaro
             Single posY = (Single)loc[1];
             byte charges = 0;
             byte size = 0;
-            if (!byte.TryParse(parameters[10].ToString(), out size))
-                size = 0; //nothink in stack
+            //if (!byte.TryParse(parameters[10].ToString(), out size))
+            //    size = 0; //nothink in stack
 
-            if (!byte.TryParse(parameters[11].ToString(), out charges))
-                charges = 0; // charge 
+            //if (!byte.TryParse(parameters[11].ToString(), out charges))
+            //    charges = 0; // charge 
 
             harvestableHandler.AddHarvestable(id, type, tier, posX, posY, charges, size);
         }
@@ -327,20 +333,37 @@ namespace AlbionRadaro
         private void onNewCharacterEvent(Dictionary<byte, object> parameters)
         {
 
-            if (Settings.PlaySoundOnPlayer())
-                new Thread(() => Console.Beep(1000, 1000)).Start();
-
 
             int id = int.Parse(parameters[0].ToString());
             string nick = parameters[1].ToString();
             object oGuild = "";
+            object oAlliance = "";
             parameters.TryGetValue((byte)8, out oGuild);
+            parameters.TryGetValue((byte)43, out oAlliance);
             string guild = oGuild == null ? "" : oGuild.ToString();
+            string alliance = oGuild == null ? "" : oAlliance.ToString();
 
             //string guild = parameters[8].ToString() || null;
-            string alliance = parameters[44].ToString();
+            //string alliance = parameters[43].ToString();
 
             Single[] a13 = (Single[])parameters[13]; //pos1
+
+
+            string json = JsonConvert.SerializeObject(parameters.ToArray());
+
+            using (System.IO.StreamWriter sw = System.IO.File.AppendText("players.json"))
+            {
+                sw.WriteLine(json);
+            }
+            Debug.WriteLine(json);
+
+            if (Settings.PlaySoundOnPlayer())
+            {
+                if (!Settings.IsInAlliance(alliance))
+                {
+                    new Thread(() => Console.Beep(1000, 1000)).Start();
+                }
+            }
 
             playerHandler.AddPlayer(a13[0], a13[1], nick, guild, alliance, id);
         }

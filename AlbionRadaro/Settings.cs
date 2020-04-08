@@ -15,6 +15,7 @@ namespace AlbionRadaro
         static bool onlyRares = false;
         static bool displayPeople = true;
         static bool soundsOnPlayer = false;
+        static String[] alliances = null;
 
         public static void saveSettings(Form1 form){
             AppSettings s = new AppSettings();
@@ -54,6 +55,10 @@ namespace AlbionRadaro
 
             s.radarX = (int)form.nRadarX.Value;
             s.radarY = (int)form.nRadarY.Value;
+            s.showRadar = form.chkHideRadar.Checked;
+            s.Alliances = form.txtAlliances.Text;
+            Settings.alliances = (string[])form.txtAlliances.Text.Split(",".ToCharArray());
+
             s.Save();
 
         }
@@ -93,6 +98,9 @@ namespace AlbionRadaro
             form.cbSounds.Checked    = s.rSoundOnPlayer;
             form.nRadarX.Value = s.radarX;
             form.nRadarY.Value = s.radarY;
+            form.chkHideRadar.Checked = s.showRadar;
+            form.txtAlliances.Text = s.Alliances;
+            Settings.alliances = (string[])form.txtAlliances.Text.Split(",".ToCharArray());
         }
         public static bool DisplayPeople
         {
@@ -124,7 +132,12 @@ namespace AlbionRadaro
         {
             return harvestable.Contains(ht);
         }
-        
+        public static bool IsInAlliance(String alliance)
+        {
+
+            return Settings.alliances.Contains(alliance);
+        }
+
         public static void UpdateTier(int tier, byte enchant, bool show)
         {
             byte bTier = (byte) tier;

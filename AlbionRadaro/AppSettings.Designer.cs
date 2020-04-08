@@ -425,5 +425,36 @@ namespace AlbionRadaro {
                 this["radarY"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool showRadar
+        {
+            get
+            {
+                return ((bool)(this["showRadar"]));
+            }
+            set
+            {
+                this["showRadar"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Alliances
+        {
+            get
+            {
+                return ((string)this["Alliances"]);
+            }
+            set
+            {
+                this["Alliances"] = value;
+            }
+        }
+
     }
 }

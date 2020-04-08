@@ -132,6 +132,7 @@ namespace AlbionRadaro
             };
             Pen playerPen = new Pen(Color.Red, 2f);
             Brush playerBrush = Brushes.Red;
+            Brush playerAllianceBrush = Brushes.Purple;
             Brush mobBrush = Brushes.Black;
 
             int HEIGHT, WIDTH, MULTIPLER = 4;
@@ -206,11 +207,19 @@ namespace AlbionRadaro
                             catch (Exception e2) { }
                         }
 
+                        string[] alliances = this.txtAlliances.Text.Split(',');
                         foreach (Player p in pLis)
                         {
                             Single hX = -1 * p.PosX + lpX;
                             Single hY = p.PosY - lpY;
-                            g.FillEllipse(playerBrush, hX, hY, 2, 2);
+                            if (alliances.Contains(p.Alliance))
+                            {
+                                g.FillEllipse(playerAllianceBrush, hX, hY, 2, 2);
+                            }
+                            else
+                            {
+                                g.FillEllipse(playerBrush, hX, hY, 2, 2);
+                            }
                             g.TranslateTransform(hX, hY);
                             g.RotateTransform(135f);
                             Font font2 = new Font("Arial", 2, FontStyle.Regular);
@@ -339,24 +348,31 @@ namespace AlbionRadaro
                                                PacketDeviceOpenAttributes.Promiscuous, // promiscuous mode
                                                1000))                                  // read timeout
                     {
-                        // Check the link layer. We support only Ethernet for simplicity.
-                        if (communicator.DataLink.Kind != DataLinkKind.Ethernet)
+                        try
                         {
-                            Console.WriteLine("This program works only on Ethernet networks.");
-                            return;
-                        }
+                            // Check the link layer. We support only Ethernet for simplicity.
+                            if (communicator.DataLink.Kind != DataLinkKind.Ethernet)
+                            {
+                                Console.WriteLine("This program works only on Ethernet networks.");
+                                return;
+                            }
 
-                        // Compile the filter
-                        using (BerkeleyPacketFilter filter = communicator.CreateFilter("ip and udp"))
+                            // Compile the filter
+                            using (BerkeleyPacketFilter filter = communicator.CreateFilter("ip and udp"))
+                            {
+                                // Set the filter
+                                communicator.SetFilter(filter);
+                            }
+
+                            Console.WriteLine("Listening on " + selectedDevice.Description + "...");
+
+                            // start the capture
+                            communicator.ReceivePackets(0, photonPacketHandler.PacketHandler);
+                        }
+                        catch (Exception e)
                         {
-                            // Set the filter
-                            communicator.SetFilter(filter);
+                            // do nothing
                         }
-
-                        Console.WriteLine("Listening on " + selectedDevice.Description + "...");
-
-                        // start the capture
-                        communicator.ReceivePackets(0, photonPacketHandler.PacketHandler);
 
                     }
                 });
@@ -517,5 +533,19 @@ namespace AlbionRadaro
             updateSettings();
         }
 
+        private void ChkHideRadar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkHideRadar.Checked)
+                mapForm.Hide();
+            else
+                mapForm.Show();
+
+            updateSettings();
+        }
+
+        private void TxtAlliances_TextChanged(object sender, EventArgs e)
+        {
+            updateSettings();
+        }
     }
 }

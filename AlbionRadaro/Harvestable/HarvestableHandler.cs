@@ -21,7 +21,7 @@ namespace AlbionRadaro
             if (!harvestableList.Contains(h))
             {
                 harvestableList.Add(h);
-                // Console.WriteLine("New Harvestable: " + h.ToString());
+                //Console.WriteLine("New Harvestable: " + h.ToString());
             }
         }
         public bool RemoveHarvestable(int id)
